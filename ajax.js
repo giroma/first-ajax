@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function() {
       secondButton.parentNode.innerHTML += `<p>${response}</p>`
 
     })
+    response.fail(function () {
+      secondButton.parentNode.innerHTML += `<p>there was an error</p>`
+    })
   })
 
 });
