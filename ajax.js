@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
   var rootButton = document.querySelector('.rootButton')
+  var secondButton = document.querySelector('.secondButton')
 
   rootButton.addEventListener('click', function () {
 
@@ -11,4 +12,19 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     console.log(response);
   })
+  secondButton.addEventListener('click', function (e) {
+
+    var response = $.ajax({
+      url: 'http://first-ajax-api.herokuapp.com/ping',
+      method: 'GET',
+      dataType: 'text'
+    }).done(function (response) {
+
+      console.log(response);
+      console.log(secondButton); //path[1] selects the parent element
+      secondButton.parentNode.innerHTML += `<p>${response}</p>`
+
+    })
+  })
+
 });
