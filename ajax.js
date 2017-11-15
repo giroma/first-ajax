@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-  var rootButton = document.querySelector('.rootButton')
-  var secondButton = document.querySelector('.secondButton')
-  var thirdButton = document.querySelector('.thirdButton')
-  var fourthButton = document.querySelector('.fourthButton')
+  var rootButton = document.querySelector('.rootButton');
+  var secondButton = document.querySelector('.secondButton');
+  var thirdButton = document.querySelector('.thirdButton');
+  var fourthButton = document.querySelector('.fourthButton');
+  var fifthButton = document.querySelector('.fifthButton');
 
   rootButton.addEventListener('click', function () {
 
@@ -11,27 +12,22 @@ document.addEventListener("DOMContentLoaded", function() {
       url: 'http://first-ajax-api.herokuapp.com/',
       method: 'GET',
       dataType: 'text'
-    })
+    });
     console.log(response);
-  })
+  });
+
   secondButton.addEventListener('click', function (e) {
 
-    var response = $.ajax({
+    $.ajax({
       url: 'http://first-ajax-api.herokuapp.com/ping',
       method: 'GET',
       dataType: 'text'
     }).done(function (response) {
-
       console.log(response);
       console.log(secondButton); //path[1] selects the parent element
-      secondButton.parentNode.innerHTML += `<p>${response}</p>`
-
-    }).fail(function () {
-      secondButton.parentNode.append('there was an error')
-    }).always(function () {
-      console.log('finished');
+      secondButton.parentNode.append(response)
     })
-  })
+  });
 
   thirdButton.addEventListener('click', function () {
     var response = $.ajax({
@@ -46,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }).always(function () {
       console.log('always');
     })
-  })
+  });
 
   fourthButton.addEventListener('click', function () {
     var response = $.ajax({
@@ -62,5 +58,23 @@ document.addEventListener("DOMContentLoaded", function() {
     }).always(function () {
       console.log('always');
     })
-  })
+  });
+
+  fifthButton.addEventListener('click', function () {
+    $.ajax({
+      url: 'http://first-ajax-api.herokuapp.com/a_car',
+      method: 'GET',
+      dataType: 'html'
+    }).done(function (response) {
+      var list = document.createElement('ul')
+      list.id = 'unordered'
+      list.innerHTML = response
+      fifthButton.parentNode.append(list)
+      console.log(response);
+
+    }).fail(function () {
+      fifthButton.parentNode.append('there was an error')
+    })
+  });
+
 });
