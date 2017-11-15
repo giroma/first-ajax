@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var rootButton = document.querySelector('.rootButton')
   var secondButton = document.querySelector('.secondButton')
+  var thirdButton = document.querySelector('.thirdButton')
 
   rootButton.addEventListener('click', function () {
 
@@ -26,7 +27,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     })
     response.fail(function () {
-      secondButton.parentNode.innerHTML += `<p>there was an error</p>`
+      secondButton.parentNode.append('there was an error')
+    })
+    response.always(function () {
+      console.log('finished');
+    })
+  })
+
+  thirdButton.addEventListener('click', function () {
+    var response = $.ajax({
+      url: 'http://first-ajax-api.herokuapp.com/count',
+      method: 'GET',
+      dataType: 'text'
+    }).done(function (response) {
+      console.log(response);
+      thirdButton.parentNode.innerHTML += `<p>${response}</p>`
+    }).fail(function () {
+      thirdButton.parentNode.append('there was an error')
+    }).always(function () {
+      console.log('finished');
     })
   })
 
